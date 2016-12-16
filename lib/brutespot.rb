@@ -34,8 +34,9 @@ loop do
     title = douter.css('.post-title a').inner_text.strip
     text = douter.css('.post-body').inner_text.strip
 
-    dd = date.split('/')
-    jdate = "#{dd[2]}#{dd[0]}#{dd[1]}"
+    dd = date.split('/').collect(&:to_i)
+    jdate = "%i%02i%02i" % [ dd[2], dd[0], dd[1] ]
+    njdate = "%i-%02i-%02i" % [ dd[2], dd[0], dd[1] ]
     atitle = title.downcase.gsub(/[^a-z0-9]+/, '_')
 
     fname = "out/#{jdate}__#{atitle}.txt"
@@ -44,9 +45,13 @@ loop do
     exit(0) if File.exist?(fname)
 
     File.open(fname, 'wb') do |f|
-      f.puts(date)
+      f.puts
+      f.puts(njdate)
+      f.puts
       f.puts(title)
+      f.puts
       f.puts(text)
+      f.puts
     end
   end
 
