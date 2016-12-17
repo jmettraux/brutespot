@@ -40,9 +40,10 @@ loop do
     atitle = title.downcase.gsub(/[^a-z0-9]+/, '_')
 
     fname = "out/#{jdate}__#{atitle}.txt"
-    puts "... " + fname
 
     exit(0) if File.exist?(fname)
+
+    puts "... " + fname
 
     File.open(fname, 'wb') do |f|
       f.puts
